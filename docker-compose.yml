@@ -1,0 +1,43 @@
+######################################################
+# Service de gestion du revers Proxy et de création des
+# certificat SSL automatisé via Certbot
+######################################################
+version: '3.8'
+
+services:
+
+    ######################################################
+    # configuration NGINX Reverse Proxy
+    nginx:
+        image: linuxserver/swag:latest
+        container_name: swag
+        restart: always
+        ports:
+            - ${NGINX_swag_HTTP}
+            - ${NGINX_swag_HTTPS}
+
+        environment:
+            - PUID=1000
+            - PGID=1000
+            - TZ=Europe/London
+            - URL=ghoverblog.ovh
+            - SUBDOMAINS=www,keycloak,jenkins,sp-gateway,doc-sphinx
+            - VALIDATION=http
+            #- CERTPROVIDER=
+            - DNSPLUGIN=ovh.ini
+            #- DUCKDNSTOKEN=
+            - EMAIL=ghalem.maxime@gmail.com
+            - ONLY_SUBDOMAINS=false
+            #- EXTRA_DOMAINS=<extradomains>
+            - STAGING=false
+
+        volumes:
+            - ./swag_home/config:/config:rw                         # les fichiers swag et de certbot.            
+
+        networks:
+            - swag
+####################################################################
+# réseau bridge nommé swag_nginx créer via le docker compose de swag 
+networks:
+    swag:
+      name: swag_nginx

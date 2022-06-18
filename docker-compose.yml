@@ -19,7 +19,7 @@ services:
         environment:
             - PUID=1000
             - PGID=1000
-            - TZ=Europe/London
+            - TZ=Europe/Paris
             - URL=ghoverblog.ovh
             - SUBDOMAINS=www,keycloak,jenkins,sp-gateway,doc-sphinx
             - VALIDATION=http

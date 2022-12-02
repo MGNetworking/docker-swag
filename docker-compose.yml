@@ -32,7 +32,8 @@ services:
             - STAGING=false
 
         volumes:
-            -  "./swag_home/config:/config:rw"         # les fichiers swag et de certbot
+            -  "./swag_home/config:/config:rw"              # les fichiers swag et de certbot
+            -  "/home/max/homedocker/static/images:/images" # les fichier images sur le serveur
 
         networks:
             - swag

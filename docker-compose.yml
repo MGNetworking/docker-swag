@@ -21,7 +21,7 @@ services:
             - PGID=1000
             - TZ=Europe/Paris
             - URL=ghoverblog.ovh
-            - SUBDOMAINS=www,keycloak,jenkins,sp-gateway,doc-sphinx,jenkins-pre,keycloak-pre,preprod,synology-max,plex-max
+            - SUBDOMAINS=www,keycloak,jenkins,sp-gateway,doc-sphinx,jenkins-pre,keycloak-pre,preprod,synology-max,plex-max,images
             - VALIDATION=http
             #- CERTPROVIDER=
             - DNSPLUGIN=ovh.ini

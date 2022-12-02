@@ -33,7 +33,7 @@ services:
 
         volumes:
             -  "./swag_home/config:/config:rw"              # les fichiers swag et de certbot
-            -  "/home/max/homedocker/static/images:/blog/images" # les fichier images sur le serveur
+            -  "/home/max/homedocker/static/images:/var/lib/nginx/images" # les fichier images sur le serveur
 
         networks:
             - swag

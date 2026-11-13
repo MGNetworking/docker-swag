@@ -1,0 +1,38 @@
+# Banc de test : ajoute au compose de production de faux services et un certificat de test déjà en place
+# (SWAG le reconnaît et ne contacte pas Let's Encrypt). Lancé par run.sh (avec --project-directory à la racine du projet).
+services:
+  swag:
+    container_name: swag-test
+    volumes:
+      # Remplacent les montages de production (même point de montage).
+      - ./tests/.generated/config:/config
+      - ./tests/.generated/sites:/config/nginx/sites:ro
+    depends_on: [app, keycloak, esxi, plex]
+
+  app:
+    image: node:lts-alpine
+    command: node /app/backend.js
+    environment: { PORT: "3000", NAME: app }
+    volumes: ["./tests/backend.js:/app/backend.js:ro"]
+    networks: [proxy]
+
+  keycloak:
+    image: node:lts-alpine
+    command: node /app/backend.js
+    environment: { PORT: "8080", NAME: keycloak }
+    volumes: ["./tests/backend.js:/app/backend.js:ro"]
+    networks: [proxy]
+
+  esxi:
+    image: node:lts-alpine
+    command: node /app/backend.js
+    environment: { PORT: "443", NAME: esxi, TLS_KEY: /certs/backend.key, TLS_CERT: /certs/backend.crt }
+    volumes: ["./tests/backend.js:/app/backend.js:ro", "./tests/.generated/backend-certs:/certs:ro"]
+    networks: [proxy]
+
+  plex:
+    image: node:lts-alpine
+    command: node /app/backend.js
+    environment: { PORT: "32400", NAME: plex, TLS_KEY: /certs/backend.key, TLS_CERT: /certs/backend.crt }
+    volumes: ["./tests/backend.js:/app/backend.js:ro", "./tests/.generated/backend-certs:/certs:ro"]
+    networks: [proxy]

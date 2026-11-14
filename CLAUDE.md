@@ -6,7 +6,7 @@ Let's Encrypt **HTTP**. Dépôt **privé**. Ce projet a repris tout le contenu d
 ## Règles à ne pas enfreindre
 
 - **Aucun secret dans ce dépôt** : pas de clé d'API (l'ancien `ovh.ini` et `.env` ont été retirés ; ils restent dans l'historique, les clés
-  OVH doivent être révoquées chez OVH). `.env` est dans `.gitignore`.
+  OVH doivent être révoquées chez OVH). `.env` est versionné et **ne contient que des réglages non secrets** (détail : `docs/parametres.md`) ; un éventuel secret se donne au démarrage.
 - **Pas de `proxy_pass` avec un nom de conteneur écrit en dur** : toujours `set $upstream ...;` puis `proxy_pass http://$upstream;`.
   Avec un nom en dur, Nginx résout au démarrage et refuse de démarrer si un seul projet du serveur est arrêté.
 - Un seul certificat couvre `URL`, `SUBDOMAINS` et `EXTRA_DOMAINS` : un site dont le nom n'est pas dans la liste n'a pas de certificat

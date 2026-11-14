@@ -17,11 +17,11 @@ services:
       PUID: 1000
       PGID: 1000
       TZ: ${TZ:-Europe/Paris}
-      URL: ${URL:?URL manquant, copier .env.example en .env}
+      URL: "${URL:?URL manquant : le renseigner dans .env}"
       SUBDOMAINS: ${SUBDOMAINS:-}
       EXTRA_DOMAINS: ${EXTRA_DOMAINS:-}
       ONLY_SUBDOMAINS: ${ONLY_SUBDOMAINS:-false}
-      EMAIL: ${EMAIL:?EMAIL manquant, copier .env.example en .env}
+      EMAIL: "${EMAIL:?EMAIL manquant : le renseigner dans .env}"
       VALIDATION: http
       STAGING: ${STAGING:-false}
     volumes:

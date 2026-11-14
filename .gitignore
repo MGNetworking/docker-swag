@@ -1,5 +1,6 @@
 # Local, jamais versionné
-.env
 config/
 swag_home/
 tests/.generated/
+ROADMAP.md
+.claude/settings.local.json

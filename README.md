@@ -15,13 +15,14 @@ Internet ─ 80/443 ─> [ SWAG : Nginx + Certbot ] ──réseau « proxy »─
 
 ```
 docker-compose.yml       SWAG
-.env.example             domaine, sous-domaines, adresse pour Let's Encrypt, ports
+.env                     domaine, sous-domaines, adresse pour Let's Encrypt, ports (aucun secret ; détail : docs/parametres.md)
 nginx/
 ├── site-confs/default.conf   remplace celui de SWAG : redirection HTTPS, nom inconnu refusé, charge nginx/sites/
 ├── snippets/                 blocs partagés : proxy (en-têtes, WebSocket), timeouts, errors
 ├── templates/                modèles de site : app, app-https, keycloak, hyperviseur, plex
 └── sites/                    les sites de CE serveur (créés par new-site.sh ; versionnés)
 html/50x.html            page d'erreur quand un service est arrêté
+docs/parametres.md       le rôle de chaque réglage de .env
 scripts/                 new-site.sh, check.sh, certs.sh
 tests/run.sh             banc de test (Docker seulement)
 ```
@@ -32,8 +33,7 @@ Prérequis : Docker avec le plugin Compose ; le DNS de **chaque** nom pointe ver
 ouverts (pare-feu compris).
 
 ```bash
-cp .env.example .env     # renseigner URL, SUBDOMAINS, EMAIL
-docker compose up -d     # SWAG demande le certificat (STAGING=true pour un premier essai), puis démarre Nginx
+docker compose up -d     # après avoir renseigné URL, SUBDOMAINS et EMAIL dans .env (aucun mot de passe : voir docs/parametres.md) ; SWAG demande le certificat (STAGING=true pour un premier essai), puis démarre Nginx
 docker compose logs -f swag
 ```
 
@@ -98,7 +98,7 @@ Un nouveau type de service : un fichier dans `nginx/templates/` avec les repère
   `proxy_pass`, DNS de Docker). Un site dont le service est arrêté répond 502 avec une page claire, les autres continuent, et
   Nginx redémarre sans erreur.
 - TLS et HSTS par la configuration de SWAG (`ssl.conf`), version de Nginx masquée.
-- `.env` n'est **jamais versionné** ; l'état de SWAG (certificat, journaux) vit dans le volume Docker `swag_config`.
+- `.env` ne contient **aucun secret** (il est versionné) ; l'état de SWAG (certificat, journaux) vit dans le volume Docker `swag_config`.
 
 ## Mettre à jour
 

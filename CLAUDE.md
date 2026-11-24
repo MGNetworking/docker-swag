@@ -1,7 +1,7 @@
 # CLAUDE.md — docker-swag
 
 Reverse proxy **de production** pour un serveur (VPS) : SWAG (Nginx + Certbot, `linuxserver/swag`) en Docker Compose, validation
-Let's Encrypt **HTTP**. Dépôt **privé**. Ce projet a repris tout le contenu de l'ancien `docker-nginx` (modèles, scripts, banc de test).
+Let's Encrypt **HTTP**. Dépôt **public** (depuis le 2026-11-23) : jamais de secret dans un fichier. Ce projet a repris tout le contenu de l'ancien `docker-nginx` (modèles, scripts, banc de test).
 
 ## Règles à ne pas enfreindre
 

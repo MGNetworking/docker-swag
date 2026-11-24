@@ -3,7 +3,7 @@
 Un reverse proxy **Nginx** en HTTPS, avec son certificat **Let's Encrypt** obtenu et renouvelé par **SWAG** (image
 `linuxserver/swag` : Nginx + Certbot dans un seul conteneur). À poser une fois sur un serveur pour exposer les autres
 projets qui y tournent : chacun reste dans sa pile Docker, le proxy les joint par le nom de leur conteneur et porte seul
-les ports 80 et 443. Dépôt **privé**.
+les ports 80 et 443. Dépôt **public** (depuis le 2026-11-23) : aucun secret dedans. **Mis de côté** le 2026-11-23 : sur le VPS, k3s fait le reverse proxy et les certificats.
 
 ```
 Internet ─ 80/443 ─> [ SWAG : Nginx + Certbot ] ──réseau « proxy »──> app:3000      (un conteneur par projet)
